@@ -12,7 +12,7 @@ class DBClient:
     sock = socket()                        # create a socket
     sock.connect((self.host, self.port))   # connect to server
     sock.send(pickle.dumps(message))       # send some data
-    result = pickle.loads(sock.recv(1024)) # receive the response
+    result = pickle.loads(sock.recv(4096)) # receive the response
     sock.close()                           # close the connection
     return result
 

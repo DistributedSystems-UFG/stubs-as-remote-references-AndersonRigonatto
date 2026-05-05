@@ -5,12 +5,13 @@ from constRPC import *  #-
 #-
 class Server:
   def __init__(self, port=PORTS): #-
-    self.host = 'localhost'               # this machine                     #-
+    self.host = '0.0.0.0'                 # bind em todas as interfaces (necessário em EC2)
     self.port = port                      # the port it will listen to       #-
     self.sock = socket()                  # socket for incoming calls        #-
+    self.sock.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     self.sock.bind((self.host,self.port)) # bind socket to an address        #-
     self.sock.listen(5)                   # max num of connections           #-
-    self.setOfLists = {}                  # init: no lists to manage         
+    self.setOfLists = {}                  # init: no lists to manage
 
   def run(self):
     while True:
